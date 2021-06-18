@@ -20,17 +20,23 @@ const TodoList = () => {
         })
         setTodos(updatedTodos)
     };
+    const updateTodo = (todoId, newValue) => {
+        if (!newValue.text || /^\s*$/.test(newValue.text)) {
+            return
+        }
+        setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item))
+        );
+    };
 
     const removeTodo = id => {
         const removeArr = [...todos].filter(todo => todo.id !== id)
-        
         setTodos(removeArr);
     }
     return (
         <div>
-            <h1>What's the Plan for Today?</h1>
+            <h1>toDo List</h1>
             <TodoForm onSubmit={addTodo}/>
-            <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} />
+            <Todo todos={todos} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo={updateTodo} />
         </div>
     )
 }
