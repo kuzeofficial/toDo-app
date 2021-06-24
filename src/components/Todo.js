@@ -16,6 +16,7 @@ function Todo({todos, completeTodo, removeTodo, updateTodo}) {
             value: ''
         })
     }
+    
     if (edit.id) {
         return <TodoForm edit={edit} onSubmit={submitUpdate} />
     }

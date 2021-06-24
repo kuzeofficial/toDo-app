@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TodoForm from './TodoForm'
 import Todo from './Todo'
 
@@ -11,6 +11,15 @@ const TodoList = () => {
         const newTodos = [todo, ...todos]
         setTodos(newTodos)
     }
+    useEffect(() => {
+        const storedTodos = JSON.parse(localStorage.getItem('todoApp'))
+        if (storedTodos){
+            setTodos(storedTodos)
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('todoApp', JSON.stringify(todos))
+    }, [todos])
     const completeTodo = id => {
         let updatedTodos = todos.map(todo => {
             if (todo.id === id) {
